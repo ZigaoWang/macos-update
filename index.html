@@ -7,11 +7,26 @@
     <title>macOS Update</title>
 </head>
 <body>
-    <img src="logo.png" class="logo">
-    <br />
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>Welcome to the macOS Update Simulation</h1>
+        <h4>Created by Zigao Wang, available on <a href="https://github.com/ZigaoWang/macos-update" target="_blank" rel="noopener noreferrer">GitHub</a> under the MIT License</h4>
+        <p>Please specify the update duration:</p>
+        <label for="minutes">Minutes:</label>
+        <input type="number" id="minutes" name="minutes" value="5" min="0"><br>
+        <label for="seconds">Seconds:</label>
+        <input type="number" id="seconds" name="seconds" value="0" min="0" max="59"><br>
+        <p>Note: Your cursor will be hidden during the update.</p>
+        <button id="startButton">Start Update</button>
     </div>
-    <script src="script.js"></script>
+</div>
+
+<img src="logo.png" class="logo">
+<br />
+<div class="progress-bar">
+    <div class="progress-fill"></div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

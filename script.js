@@ -1,32 +1,49 @@
 document.addEventListener('DOMContentLoaded', function () {
   const progressBar = document.querySelector('.progress-fill');
+  const modal = document.getElementById('myModal');
+  const closeButton = document.getElementsByClassName('close')[0];
+  const startButton = document.getElementById('startButton');
 
-  // Show a popup message to the user
-  alert("Welcome to the Fake macOS Update Screen!\n\nThis website is created by Zigao Wang.\n\nTo set the time for the update, please enter the number of minutes and seconds when prompted.\n\nYour mouse cursor will be hided during the update.");
+  // Open the modal
+  modal.style.display = 'block';
 
-  // Prompt the user for the time in minutes and seconds
-  const minutes = parseInt(prompt('Enter the number of minutes for the update:', '5'), 10);
-  const seconds = parseInt(prompt('Enter the number of seconds for the update:', '0'), 10);
-
-  if (isNaN(minutes)) {
-      minutes = 5; // Default to 5 minutes if the input is empty or invalid
+  // When the user clicks on the close button, close the modal
+  closeButton.onclick = function() {
+    modal.style.display = 'none';
   }
 
-  if (isNaN(seconds)) {
-      seconds = 0; // Default to 0 seconds if the input is empty or invalid
+  // When the user clicks the start button, start the update
+  startButton.onclick = function() {
+    const minutes = parseInt(document.getElementById('minutes').value, 10);
+    const seconds = parseInt(document.getElementById('seconds').value, 10);
+
+    const durationInMilliseconds = (minutes * 60000) + (seconds * 1000); // Convert to milliseconds
+
+    modal.style.display = 'none';
+
+    // Set the width of the progress bar to 0% initially
+    progressBar.style.width = '0%';
+
+    // Animate the progress bar to 100% over the specified duration
+    progressBar.style.transition = `width ${durationInMilliseconds}ms linear`;
+    progressBar.style.width = '100%';
+
+    // Hide the cursor
+    document.body.style.cursor = 'none';
+
+    setTimeout(() => {
+      alert('macOS Update Complete!');
+      // Optionally, reset the progress bar and reopen the modal here
+      // Show the cursor again
+      document.body.style.cursor = 'auto';
+    }, durationInMilliseconds);
   }
 
-  const durationInMilliseconds = (minutes * 60000) + (seconds * 1000); // Convert minutes and seconds to milliseconds
 
-  // Set the width of the progress bar to 0% initially
-  progressBar.style.width = '0%';
-
-  // Animate the progress bar from 0% to 100% based on the user's input duration
-  progressBar.style.transition = `width ${durationInMilliseconds}ms linear`;
-  progressBar.style.width = '100%';
-
-  // After the specified duration, you can perform an action, for example, display a message
-  setTimeout(() => {
-      alert('macOS Update Complete');
-  }, durationInMilliseconds);
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  }
 });
